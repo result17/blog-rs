@@ -1,7 +1,7 @@
-use axum::{routing::get, Router};
+use axum::{routing::get, Router, extract::{TypedHeader}, headers::UserAgent};
 
-async fn index() -> String {
-    String::from("homepage")
+async fn index(TypedHeader(user_agent): TypedHeader<UserAgent>) -> String {
+    String::from(user_agent.as_str())
 }
 
 #[tokio::main]
